@@ -8,13 +8,11 @@ export default defineConfig({
     vue(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico'],
       manifest: {
         name: '记账助手',
         short_name: '记账',
         description: '个人记账应用',
-        theme_color: '#4CAF50',
-        icons: [{ src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' }]
+        theme_color: '#4CAF50'
       }
     })
   ],
