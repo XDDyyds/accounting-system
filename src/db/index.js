@@ -3,25 +3,28 @@ import Dexie from 'dexie'
 export const db = new Dexie('AccountBook')
 
 db.version(1).stores({
-  transaction: '++id, type, categoryId, accountId, date',
+  transactions: '++id, type, categoryId, accountId, date',
   category: '++id, type, sortOrder',
   account: '++id, sortOrder'
 })
 
 export class Transaction {
-  constructor(type, amount, categoryId, accountId, date, note = '') {
+  constructor(type, amount, categoryId, accountId, date, note = '', createdAt) {
+    if (!['income', 'expense'].includes(type)) throw new Error(`Invalid transaction type: ${type}`)
+    if (!Number.isInteger(amount)) throw new Error(`Amount must be an integer (cents), got: ${amount}`)
     this.type = type
     this.amount = amount
     this.categoryId = categoryId
     this.accountId = accountId
     this.date = date
     this.note = note
-    this.createdAt = Date.now()
+    this.createdAt = createdAt ?? Date.now()
   }
 }
 
 export class Category {
   constructor(name, type, icon, sortOrder = 0) {
+    if (!['income', 'expense'].includes(type)) throw new Error(`Invalid category type: ${type}`)
     this.name = name
     this.type = type
     this.icon = icon
@@ -31,6 +34,7 @@ export class Category {
 
 export class Account {
   constructor(name, type, initialBalance = 0, sortOrder = 0) {
+    if (!['cash', 'bank', 'alipay', 'wechat', 'other'].includes(type)) throw new Error(`Invalid account type: ${type}`)
     this.name = name
     this.type = type
     this.initialBalance = initialBalance
@@ -64,8 +68,8 @@ export async function seedDefaults() {
   if (catCount > 0) return
 
   await db.category.bulkAdd([
-    ...DEFAULT_EXPENSE_CATEGORIES.map((c, i) => new Category(c.name, c.type, c.icon, i)),
-    ...DEFAULT_INCOME_CATEGORIES.map((c, i) => new Category(c.name, c.type, c.icon, i))
+    ...DEFAULT_EXPENSE_CATEGORIES.map((c, i) => new Category(c.name, c.type, c.icon, c.sortOrder ?? i)),
+    ...DEFAULT_INCOME_CATEGORIES.map((c, i) => new Category(c.name, c.type, c.icon, c.sortOrder ?? i))
   ])
 
   const acctCount = await db.account.count()

@@ -7,7 +7,7 @@ describe('database', () => {
   })
 
   it('should define Transaction, Category, Account tables', () => {
-    expect(db.transaction).toBeDefined()
+    expect(db.transactions).toBeDefined()
     expect(db.category).toBeDefined()
     expect(db.account).toBeDefined()
   })
