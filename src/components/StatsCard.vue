@@ -3,11 +3,12 @@
     <div class="stats-row">
       <div class="stats-item">
         <span class="stats-label">本月支出</span>
-        <span class="stats-value stats-value--expense">¥{{ expenseStr }}</span>
+        <span class="stats-value expense">¥{{ expenseStr }}</span>
       </div>
+      <div class="stats-divider"></div>
       <div class="stats-item">
         <span class="stats-label">本月收入</span>
-        <span class="stats-value stats-value--income">¥{{ incomeStr }}</span>
+        <span class="stats-value income">¥{{ incomeStr }}</span>
       </div>
     </div>
   </div>
@@ -28,15 +29,41 @@ const expenseStr = computed(() => toYuan(props.totalExpense))
 
 <style scoped>
 .stats-card {
-  margin: 16px;
-  padding: 20px;
-  background: #fff;
-  border-radius: 12px;
+  margin: 16px 16px 20px;
+  padding: 24px 20px;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
-.stats-row { display: flex; justify-content: space-around; }
-.stats-item { text-align: center; }
-.stats-label { display: block; color: #999; font-size: 14px; margin-bottom: 8px; }
-.stats-value { font-size: 28px; font-weight: 700; }
-.stats-value--expense { color: #F44336; }
-.stats-value--income { color: #4CAF50; }
+.stats-row {
+  display: flex;
+  align-items: center;
+}
+.stats-item {
+  flex: 1;
+  text-align: center;
+}
+.stats-divider {
+  width: 1px;
+  height: 48px;
+  background: var(--color-border);
+  flex-shrink: 0;
+}
+.stats-label {
+  display: block;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.stats-value {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.stats-value.expense { color: var(--color-expense); }
+.stats-value.income { color: var(--color-income); }
 </style>

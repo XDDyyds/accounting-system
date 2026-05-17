@@ -10,7 +10,10 @@
       <input v-model="note" class="note-input" placeholder="添加备注..." />
     </div>
     <div class="action-row">
-      <button class="btn-save" :disabled="!canSave" @click="save">确定</button>
+      <button class="btn-save" :disabled="!canSave" @click="save">
+        <span v-if="canSave">记一笔</span>
+        <span v-else>请完善信息</span>
+      </button>
     </div>
   </AppLayout>
 </template>
@@ -51,7 +54,6 @@ onMounted(async () => {
   }
 })
 
-// Reset category when switching type (income/expense categories differ)
 watch(txType, () => {
   categoryId.value = null
 })
@@ -72,22 +74,36 @@ async function save() {
 .note-row { padding: 12px 16px; }
 .note-input {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #eee;
-  border-radius: 8px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
   font-size: 15px;
   box-sizing: border-box;
+  background: var(--color-surface);
+  transition: border-color 0.2s;
+  outline: none;
 }
+.note-input:focus { border-color: var(--color-accent); }
+.note-input::placeholder { color: var(--color-text-muted); }
+
 .action-row { padding: 20px 16px; }
 .btn-save {
   width: 100%;
-  padding: 14px;
+  padding: 15px;
   border: none;
-  border-radius: 10px;
-  background: #4CAF50;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
   color: #fff;
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.04em;
 }
-.btn-save:disabled { background: #ccc; cursor: not-allowed; }
+.btn-save:active { transform: scale(0.98); }
+.btn-save:disabled {
+  background: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
 </style>

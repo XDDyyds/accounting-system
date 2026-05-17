@@ -25,7 +25,13 @@ defineEmits(['update:modelValue'])
 </script>
 
 <style scoped>
-.picker-label { padding: 8px 16px; font-size: 14px; color: #999; }
+.picker-label {
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.03em;
+}
 .category-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -36,13 +42,31 @@ defineEmits(['update:modelValue'])
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 4px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  background: #fff;
+  padding: 12px 4px 10px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
   cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
 }
-.category-item.selected { border-color: #4CAF50; background: #E8F5E9; }
-.cat-icon { font-size: 28px; }
-.cat-name { font-size: 12px; margin-top: 4px; color: #666; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+.category-item:active { transform: scale(0.96); }
+.category-item.selected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+}
+.cat-icon { font-size: 26px; line-height: 1; }
+.cat-name {
+  font-size: 11px;
+  margin-top: 5px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.category-item.selected .cat-name {
+  color: var(--color-accent);
+}
 </style>

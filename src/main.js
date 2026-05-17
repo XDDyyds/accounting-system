@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router/index.js'
 import { seedDefaults } from './db/index.js'
+import './styles/global.css'
 
 function checkIndexedDB() {
   if (!window.indexedDB) {
@@ -25,7 +26,7 @@ if (checkIndexedDB()) {
     console.error('Global error:', err, info)
     const msg = err?.message || String(err) || '发生未知错误'
     const el = document.createElement('div')
-    el.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#F44336;color:#fff;padding:12px 20px;border-radius:8px;z-index:9999;max-width:90vw;font-size:14px;font-family:sans-serif;box-shadow:0 2px 12px rgba(0,0,0,0.2);'
+    el.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#C75B4A;color:#fff;padding:12px 20px;border-radius:10px;z-index:9999;max-width:90vw;font-size:14px;font-family:"PingFang SC","Microsoft YaHei",sans-serif;box-shadow:0 4px 16px rgba(199,91,74,0.3);'
     el.textContent = msg
     document.body.appendChild(el)
     setTimeout(() => el.remove(), 4000)

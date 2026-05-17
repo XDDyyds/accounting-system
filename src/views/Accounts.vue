@@ -20,9 +20,18 @@
       <button class="btn-add" :disabled="!newName" @click="handleAdd">添加</button>
     </div>
     <div class="links">
-      <router-link to="/records">交易流水</router-link>
-      <router-link to="/export">导出数据</router-link>
-      <router-link to="/settings">设置</router-link>
+      <router-link to="/records" class="link-item">
+        <span>交易流水</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
+      </router-link>
+      <router-link to="/export" class="link-item">
+        <span>导出数据</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
+      </router-link>
+      <router-link to="/settings" class="link-item">
+        <span>设置</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
+      </router-link>
     </div>
   </AppLayout>
 </template>
@@ -57,26 +66,62 @@ async function remove(id) {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
 }
-.acct-name { font-size: 16px; font-weight: 500; }
-.acct-type { font-size: 12px; color: #999; margin-left: 8px; }
-.btn-delete { color: #F44336; background: none; border: none; font-size: 14px; cursor: pointer; }
+.acct-name { font-size: 15px; font-weight: 500; }
+.acct-type { font-size: 12px; color: var(--color-text-secondary); margin-left: 8px; }
+.btn-delete { color: var(--color-expense); background: none; border: none; font-size: 14px; cursor: pointer; opacity: 0.7; transition: opacity 0.15s; }
+.btn-delete:hover { opacity: 1; }
+
 .add-form { padding: 16px; display: flex; gap: 8px; }
-.input { flex: 1; min-width: 0; padding: 10px; border: 1px solid #eee; border-radius: 6px; font-size: 14px; }
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  background: var(--color-surface);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.input:focus { border-color: var(--color-accent); }
 .btn-add {
   padding: 10px 20px;
   border: none;
-  border-radius: 6px;
-  background: #4CAF50;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
   color: #fff;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
+  transition: all 0.2s;
 }
-.btn-add:disabled { background: #ccc; }
-.links { padding: 24px 16px; display: flex; flex-direction: column; gap: 12px; }
-.links a { color: #4CAF50; text-decoration: none; font-size: 15px; }
-.empty { text-align: center; color: #ccc; padding: 40px 0; }
+.btn-add:disabled { background: var(--color-border); color: var(--color-text-muted); cursor: not-allowed; }
+.btn-add:not(:disabled):active { transform: scale(0.97); }
+
+.links {
+  margin: 16px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.link-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 15px;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.link-item:last-child { border-bottom: none; }
+.link-item:active { background: var(--color-bg); }
+.link-item svg { color: var(--color-text-muted); }
+.empty { text-align: center; color: var(--color-text-muted); padding: 40px 0; font-size: 15px; }
 </style>

@@ -1,28 +1,31 @@
 <template>
   <AppLayout>
     <div class="filters">
-      <select v-model="filterMonth" @change="loadData">
+      <select v-model="filterMonth">
         <option value="">全部月份</option>
         <option v-for="m in months" :key="m.value" :value="m.value">{{ m.label }}</option>
       </select>
-      <select v-model="filterType" @change="loadData">
+      <select v-model="filterType">
         <option value="all">全部</option>
         <option value="income">收入</option>
         <option value="expense">支出</option>
       </select>
     </div>
     <div v-if="filtered.length === 0" class="empty">暂无记录</div>
-    <TransactionItem
-      v-for="tx in filtered"
-      :key="tx.id"
-      :tx="tx"
-      :category="categoryStore.getById(tx.categoryId)"
-      :account="accountStore.getById(tx.accountId)"
-      @click="confirmDelete(tx.id)"
-    />
+    <div v-else class="tx-list">
+      <TransactionItem
+        v-for="tx in filtered"
+        :key="tx.id"
+        :tx="tx"
+        :category="categoryStore.getById(tx.categoryId)"
+        :account="accountStore.getById(tx.accountId)"
+        @click="confirmDelete(tx.id)"
+      />
+    </div>
     <div v-if="showConfirm" class="overlay" @click.self="showConfirm = false">
       <div class="confirm-dialog">
-        <p>删除这条记录？</p>
+        <p class="confirm-text">删除这条记录？</p>
+        <p class="confirm-hint">此操作不可恢复</p>
         <div class="confirm-actions">
           <button class="btn-cancel" @click="showConfirm = false">取消</button>
           <button class="btn-confirm" @click="doDelete">确认删除</button>
@@ -77,12 +80,8 @@ const filtered = computed(() => {
 onMounted(async () => {
   await categoryStore.load()
   await accountStore.load()
-  await loadData()
-})
-
-async function loadData() {
   allTransactions.value = await transactionStore.getAll()
-}
+})
 
 function confirmDelete(id) {
   deleteTargetId.value = id
@@ -92,7 +91,7 @@ function confirmDelete(id) {
 async function doDelete() {
   await transactionStore.remove(deleteTargetId.value)
   showConfirm.value = false
-  await loadData()
+  allTransactions.value = await transactionStore.getAll()
 }
 </script>
 
@@ -101,42 +100,63 @@ async function doDelete() {
   display: flex;
   gap: 8px;
   padding: 12px 16px;
-  background: #fff;
-  margin-bottom: 8px;
 }
 .filters select {
   flex: 1;
-  padding: 8px;
-  border: 1px solid #eee;
-  border-radius: 6px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
   font-size: 14px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239B8E80' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
 }
-.empty { text-align: center; color: #ccc; padding: 40px 0; }
+.tx-list {
+  margin: 0 16px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.empty { text-align: center; color: var(--color-text-muted); padding: 48px 0; font-size: 15px; }
+
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.3);
+  background: rgba(45, 36, 24, 0.35);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 200;
 }
 .confirm-dialog {
-  background: #fff;
-  padding: 24px;
-  border-radius: 12px;
+  background: var(--color-surface);
+  padding: 28px 24px 20px;
+  border-radius: var(--radius-lg);
   text-align: center;
   min-width: 280px;
+  box-shadow: var(--shadow-lg);
 }
-.confirm-actions { display: flex; gap: 12px; margin-top: 16px; }
+.confirm-text { font-size: 17px; font-weight: 500; color: var(--color-text); margin-bottom: 4px; }
+.confirm-hint { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 20px; }
+.confirm-actions { display: flex; gap: 12px; }
 .btn-cancel, .btn-confirm {
   flex: 1;
-  padding: 10px;
+  padding: 11px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
+  transition: transform 0.15s;
 }
-.btn-cancel { background: #f0f0f0; }
-.btn-confirm { background: #F44336; color: #fff; }
+.btn-cancel:active, .btn-confirm:active { transform: scale(0.97); }
+.btn-cancel { background: var(--color-bg); color: var(--color-text); }
+.btn-confirm { background: var(--color-danger); color: #fff; }
 </style>

@@ -34,22 +34,32 @@ async function handleReset() {
 
 <style scoped>
 .settings-page { padding: 16px; }
-.setting-group { background: #fff; border-radius: 12px; overflow: hidden; }
+.setting-group {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
 .setting-item {
   display: flex;
   justify-content: space-between;
-  padding: 14px 16px;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 15px 16px;
+  border-bottom: 1px solid var(--color-border);
   font-size: 15px;
 }
-.setting-value { color: #999; }
+.setting-item:last-child { border-bottom: none; }
+.setting-value { color: var(--color-text-secondary); }
+
 .btn-danger {
   width: 100%;
-  padding: 14px;
+  padding: 15px;
   border: none;
-  background: #fff;
-  color: #F44336;
+  background: var(--color-surface);
+  color: var(--color-expense);
   font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
+  transition: background 0.15s;
 }
+.btn-danger:active { background: var(--color-expense-bg); }
 </style>

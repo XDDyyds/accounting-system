@@ -2,10 +2,16 @@
   <AppLayout>
     <div class="export-page">
       <div class="info-card">
-        <p>将全部交易记录导出为 CSV 文件，可用 Excel 打开。</p>
-        <p class="count">共 {{ count }} 条记录</p>
+        <p class="info-text">导出全部交易记录为 CSV 文件</p>
+        <p class="info-sub">可用 Excel 或 Numbers 打开</p>
+        <p class="count">共 <strong>{{ count }}</strong> 条记录</p>
       </div>
-      <button class="btn-export" :disabled="count === 0" @click="handleExport">导出 CSV</button>
+      <button class="btn-export" :disabled="count === 0" @click="handleExport">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="margin-right:6px">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        导出 CSV
+      </button>
     </div>
   </AppLayout>
 </template>
@@ -51,24 +57,34 @@ async function handleExport() {
 <style scoped>
 .export-page { padding: 16px; }
 .info-card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
+  background: var(--color-surface);
+  padding: 28px 20px;
+  border-radius: var(--radius-lg);
   margin-bottom: 20px;
   text-align: center;
-  font-size: 15px;
-  color: #666;
+  box-shadow: var(--shadow-sm);
 }
-.count { font-weight: 600; color: #333; margin-top: 8px; }
+.info-text { font-size: 15px; color: var(--color-text); font-weight: 500; margin-bottom: 4px; }
+.info-sub { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 12px; }
+.count { font-size: 14px; color: var(--color-text-secondary); }
+.count strong { color: var(--color-text); font-weight: 600; }
+
 .btn-export {
   width: 100%;
-  padding: 14px;
+  padding: 15px;
   border: none;
-  border-radius: 10px;
-  background: #4CAF50;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
   color: #fff;
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 500;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
 }
-.btn-export:disabled { background: #ccc; cursor: not-allowed; }
+.btn-export:active { transform: scale(0.98); }
+.btn-export:disabled { background: var(--color-border); color: var(--color-text-muted); cursor: not-allowed; }
 </style>

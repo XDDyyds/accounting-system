@@ -12,8 +12,8 @@ export default defineConfig({
         name: '记账助手',
         short_name: '记账',
         description: '个人记账应用',
-        theme_color: '#4CAF50',
-        background_color: '#f5f5f5',
+        theme_color: '#F9F7F2',
+        background_color: '#F9F7F2',
         display: 'standalone',
         icons: [{ src: 'icon.svg', sizes: '192x192', type: 'image/svg+xml', purpose: 'any maskable' }]
       }

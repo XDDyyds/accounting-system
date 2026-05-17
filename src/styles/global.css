@@ -1,0 +1,61 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg: #F9F7F2;
+  --color-surface: #FFFFFF;
+  --color-text: #2D2418;
+  --color-text-secondary: #9B8E80;
+  --color-text-muted: #C4B8A8;
+  --color-border: #EDE8E0;
+  --color-accent: #3A3042;
+  --color-accent-light: #F0EDF4;
+  --color-income: #4A7C59;
+  --color-income-bg: #EDF4EF;
+  --color-expense: #C75B4A;
+  --color-expense-bg: #FBF0ED;
+  --color-danger: #C75B4A;
+
+  --font-display: Georgia, 'Noto Serif SC', 'Source Han Serif SC', 'STSong', serif;
+  --font-body: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Heiti SC', sans-serif;
+  --font-mono: 'SF Mono', 'Menlo', 'Consolas', 'Courier New', monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --shadow-sm: 0 1px 3px rgba(45, 36, 24, 0.04);
+  --shadow-md: 0 2px 8px rgba(45, 36, 24, 0.06), 0 1px 2px rgba(45, 36, 24, 0.04);
+  --shadow-lg: 0 4px 16px rgba(45, 36, 24, 0.08), 0 2px 4px rgba(45, 36, 24, 0.04);
+
+  --max-width: 480px;
+}
+
+html {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+input, select, button {
+  font-family: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
