@@ -2,8 +2,8 @@ import Dexie from 'dexie'
 
 export const db = new Dexie('AccountBook')
 
-db.version(1).stores({
-  transactions: '++id, type, categoryId, accountId, date',
+db.version(2).stores({
+  transactions: '++id, type, categoryId, accountId, date, createdAt',
   category: '++id, type, sortOrder',
   account: '++id, sortOrder'
 })
