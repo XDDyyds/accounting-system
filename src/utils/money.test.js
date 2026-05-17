@@ -27,6 +27,17 @@ describe('toCents', () => {
     expect(toCents('abc')).toBeNaN()
     expect(toCents('')).toBeNaN()
   })
+
+  it('handles negative values', () => {
+    expect(toCents('-5.00')).toBe(-500)
+    expect(toCents('-0.01')).toBe(-1)
+  })
+
+  it('round-trips correctly', () => {
+    expect(toCents(toYuan(500))).toBe(500)
+    expect(toCents(toYuan(0))).toBe(0)
+    expect(toCents(toYuan(-500))).toBe(-500)
+  })
 })
 
 describe('formatMoney', () => {
@@ -34,5 +45,9 @@ describe('formatMoney', () => {
     expect(formatMoney(100, 'expense')).toBe('-1.00')
     expect(formatMoney(100, 'income')).toBe('+1.00')
     expect(formatMoney(0, 'expense')).toBe('0.00')
+  })
+
+  it('handles negative cents correctly', () => {
+    expect(formatMoney(-100, 'expense')).toBe('-1.00')
   })
 })

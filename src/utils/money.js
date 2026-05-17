@@ -8,13 +8,16 @@ export function toYuan(cents) {
 
 export function toCents(yuanStr) {
   const trimmed = yuanStr.trim()
-  if (!/^\d+(\.\d{1,2})?$/.test(trimmed)) return NaN
+  if (!/^-?\d+(\.\d{1,2})?$/.test(trimmed)) return NaN
   const num = parseFloat(trimmed)
   return Math.round(num * 100)
 }
 
 export function formatMoney(cents, type) {
-  const yuan = toYuan(cents)
-  if (cents === 0) return yuan
-  return type === 'income' ? `+${yuan}` : `-${yuan}`
+  if (!['income', 'expense'].includes(type)) {
+    return toYuan(cents)
+  }
+  if (cents === 0) return '0.00'
+  const sign = type === 'income' ? '+' : '-'
+  return sign + toYuan(Math.abs(cents))
 }
