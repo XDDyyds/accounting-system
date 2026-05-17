@@ -4,7 +4,7 @@
       <h1 class="app-title">{{ $route.meta.title }}</h1>
     </header>
     <main class="app-main">
-      <router-view />
+      <slot />
     </main>
     <nav class="tab-bar">
       <router-link to="/" class="tab-item" :class="{ active: $route.path === '/' }">
